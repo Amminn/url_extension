@@ -5,28 +5,14 @@ const ulEl = document.getElementById("ul-el")
 const deleteBtn = document.getElementById("delete-btn")
 const leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
 
-// 1. Check if leadsFromLocalStorage is truthy
-// 2. If so, set myLeads to its value and call renderLeads()
-
-if (leadsFromLocalStorage){
-    myLeads = leadsFromLocalStorage;
+if (leadsFromLocalStorage) {
+    myLeads = leadsFromLocalStorage
     renderLeads()
-} else {
-    console.log('the localStorage is empty')
 }
 
-deleteBtn.addEventListener('dblclick', function() {
-    localStorage.clear();
-    myLeads = [];
-    ulEl.innerHTML = ""
-})
-
-inputBtn.addEventListener("click", function() {
-    myLeads.push(inputEl.value)
-    inputEl.value = ""
-    localStorage.setItem("myLeads", JSON.stringify(myLeads) )
-    renderLeads()
-})
+// Refector the function so that it takes a parameter, leads, that it uses
+// instead of the global myLeads variable. Remember to update all invocations 
+// of the function as well.
 
 function renderLeads() {
     let listItems = ""
@@ -39,5 +25,18 @@ function renderLeads() {
             </li>
         `
     }
-    ulEl.innerHTML = listItems  
+    ulEl.innerHTML = listItems
 }
+
+deleteBtn.addEventListener("dblclick", function() {
+    localStorage.clear()
+    myLeads = []
+    renderLeads()
+})
+
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    localStorage.setItem("myLeads", JSON.stringify(myLeads) )
+    renderLeads()
+})
